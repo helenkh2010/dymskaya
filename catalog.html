@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Каталог — Дымская</title><link rel="stylesheet" href="style.css"><script src="js/header.js" defer></script><script src="js/footer.js" defer></script><script src="js/script.js" defer></script></head><body class="catalog-page"><div data-header></div><main>
+<section class="catalog-intro"><h1>Каталог мастерской Дымская</h1><p>Авторские изделия из металла и дерева для дома, сада и бани.<br>Всё сделано вручную, с доставкой по всей России.</p></section>
+<form class="catalog-filters" onsubmit="return false" aria-label="Фильтры каталога">
+<div class="filter-row"><select id="category" aria-label="Категория"><option value="all">Все товары</option><option value="ovens">Мангалы и печи</option><option value="furniture">Мебель и дровницы</option><option value="decor">Флюгеры и декор</option></select><select id="availability" aria-label="Наличие"><option value="all">Наличие</option><option value="stock">В наличии</option><option value="order">Под заказ</option></select></div>
+<div class="filter-row wide"><select id="material" aria-label="Материал"><option value="all">Все материалы</option><option value="metal">Металл</option><option value="wood">Металл и дерево</option></select><select id="lead-time" aria-label="Срок изготовления"><option value="all">Сроки изготовления</option><option value="7">До 7 дней</option><option value="14">До 14 дней</option><option value="30">До 30 дней</option></select></div>
+<div class="price-filter"><label for="price">Цена</label><div><input id="price" type="range" min="5000" max="50000" step="100" value="50000" aria-label="Максимальная цена"><div class="price-labels"><span>5 000 ₽</span><output id="price-value">50 000 ₽</output></div></div></div>
+<div class="catalog-search" hidden><label for="search">Поиск по названию</label><input id="search" type="search" placeholder="Название изделия"></div></form>
+<div data-catalog></div><div class="catalog-empty container" data-empty hidden><p>Нет изделий с выбранными параметрами.</p><button class="button" data-reset-filters>Сбросить фильтры</button></div>
+<section class="catalog-custom"><div><h2>Нужен особенный проект</h2><p>Изготавливаем изделия по вашим размерам и эскизам.<br>От идеи до готового результата.</p><a class="button" href="custom.html">Заказать свой проект →</a></div><img src="images/custom.png" alt="Эскиз орнамента и кованые детали"></section>
+</main><div data-footer></div></body></html>
+
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Индивидуальный заказ — Дымская</title><link rel="stylesheet" href="style.css"><script src="js/header.js" defer></script><script src="js/footer.js" defer></script><script src="js/script.js" defer></script></head>
+<body class="custom-page"><div data-header></div><main>
+<img class="custom-hero" src="images/custom.png" alt="Эскиз растительного орнамента и кованые детали">
+<section class="intro custom-intro"><h1>Создайте свой проект вместе с Дымской</h1><p>Изготавливаем изделия по вашим размерам, эскизам и идеям. От чертежа до готового результата.</p></section>
+<form class="project-form container" id="project-form">
+  <div class="project-fields">
+    <div class="project-contact"><label class="visually-hidden" for="project-name">Имя (обязательно)</label><input id="project-name" name="name" placeholder="Имя*" autocomplete="name" required maxlength="100"><label class="visually-hidden" for="project-email">Email (обязательно)</label><input id="project-email" name="email" type="email" placeholder="Email*" autocomplete="email" required maxlength="254"><label class="visually-hidden" for="project-product">Название товара</label><input id="project-product" name="product" placeholder="Название товара" maxlength="150"></div>
+    <div class="project-message"><label class="visually-hidden" for="project-details">Ваши пожелания</label><textarea id="project-details" name="details" placeholder="Ваши пожелания" maxlength="5000"></textarea><label class="attachment-button" for="project-files" title="Прикрепить эскиз или фото"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8v9a5 5 0 0 1-10 0V6a3 3 0 0 1 6 0v10a1 1 0 0 1-2 0V7M19 10v6m-3-3h6"/></svg><span class="visually-hidden">Прикрепить файлы</span></label><input class="visually-hidden" id="project-files" name="files" type="file" accept="image/*,.pdf" multiple></div>
+  </div>
+  <p class="required-note">*Обязательное поле</p><ul class="attachment-list" id="attachment-list" aria-live="polite" hidden></ul>
+  <div class="project-submit"><button class="button" type="submit">Отправить заявку</button><label class="project-consent"><input type="checkbox" name="consent" required><span>Я принимаю пользовательское соглашение и согласен с правилами использования и обработки персональных данных</span></label><p class="project-note">Демонстрационная форма: заявка и прикреплённые файлы пока не отправляются. Отправка станет доступна после подключения сервера.</p><p class="project-status" id="project-status" role="status"></p></div>
+</form>
+<section class="custom-examples"><div class="about-section-heading"><h2>Что мы уже сделали</h2><p>Каждый проект уникален — так же будет и с вашим заказом</p></div><div class="custom-gallery" tabindex="0" role="region" aria-label="Примеры индивидуальных заказов — горизонтальная прокрутка"><img src="images/custom2.png" alt="Садовая скамья с коваными подлокотниками" loading="lazy"><img src="images/custom0.png" alt="Кованый мангал с навесом и столиком" loading="lazy"><img src="images/custom1.png" alt="Деревянная тумба с металлическим орнаментом дерева" loading="lazy"><img src="images/custom3.png" alt="Настенный кованый фонарь" loading="lazy"></div></section>
+</main><div data-footer></div></body></html>
+
