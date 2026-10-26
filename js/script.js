@@ -42,7 +42,15 @@ document.addEventListener('click',event=>{const target=event.target.closest('but
   if(target.hasAttribute('data-cart-open'))showCart();
   if(target.hasAttribute('data-remove')){const id=target.dataset.remove;if(cart[id]>1)cart[id]--;else delete cart[id];saveCart();showCart();}
   if(target.hasAttribute('data-profile'))location.href='account.html';
-  if(target.hasAttribute('data-privacy')){event.preventDefault();showDialog('<h2>О данных</h2><p>Эта учебная версия хранит состав корзины только в вашем браузере. Форма индивидуального заказа готовит письмо в почтовой программе и сама ничего не отправляет.</p><p>Перед запуском магазина здесь нужно разместить политику обработки данных продавца.</p>');}
+  if(target.hasAttribute('data-privacy')){
+  event.preventDefault();
+  showDialog(
+    '<h2>О данных</h2>' +
+    '<p>Учебная версия сайта хранит состав корзины только в вашем браузере.</p>' +
+    '<p>При отправке заявки введённые данные передаются через EmailJS на электронную почту.</p>' +
+    '<p>Перед реальным использованием необходимо разместить полноценную политику обработки персональных данных.</p>'
+  );
+  }
   if(target.dataset.article){const [title,body]=articleText[target.dataset.article];showDialog(`<h2>${title}</h2><p>${body}</p>`);}
   if(target.dataset.feature){const p=products.find(p=>p.id===target.dataset.feature);document.querySelector('[data-feature-title]').textContent=p.name;document.querySelector('[data-feature-description]').textContent=p.description;document.querySelector('[data-feature-price]').textContent='от '+money(p.price);document.querySelector('[data-feature-add]').dataset.add=p.id;const image=document.querySelector('[data-feature-image]');image.src='images/'+p.image;image.alt=p.name;document.querySelectorAll('.mini-product').forEach(el=>el.classList.toggle('is-selected',el.contains(target)));}
 });
@@ -73,47 +81,45 @@ if(catalog){
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){const video=document.querySelector('video');if(video){video.autoplay=false;video.pause();video.controls=true;}}
 
 
-
-
-
-
-
-// Локальная демонстрация формы: без отправки данных и файлов.
+// Отправка формы индивидуального заказа через EmailJS
 const projectForm = document.querySelector('#project-form');
+
 if (projectForm) {
-  const fileInput = document.querySelector('#project-files');
-  const fileList = document.querySelector('#attachment-list');
   const status = document.querySelector('#project-status');
-  let selectedFiles = [];
-  function renderAttachments() {
-    fileList.replaceChildren();
-    fileList.hidden = selectedFiles.length === 0;
-    selectedFiles.forEach((file, index) => {
-      const row = document.createElement('li');
-      const label = document.createElement('span');
-      label.textContent = file.name;
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.textContent = 'Убрать';
-      remove.setAttribute('aria-label', 'Убрать файл ' + file.name);
-      remove.addEventListener('click', () => {selectedFiles.splice(index, 1); renderAttachments();});
-      row.append(label, remove);
-      fileList.append(row);
-    });
-  }
-  fileInput.addEventListener('change', () => {
-    for (const file of fileInput.files) {
-      if (!selectedFiles.some(item => item.name === file.name && item.size === file.size && item.lastModified === file.lastModified)) selectedFiles.push(file);
-    }
-    fileInput.value = '';
-    renderAttachments();
-    status.textContent = '';
-  });
-  projectForm.addEventListener('input', () => {status.textContent = '';});
-  projectForm.addEventListener('submit', event => {
+  const submitButton = projectForm.querySelector('button[type="submit"]');
+
+  projectForm.addEventListener('submit', async (event) => {
+    // Отменяем стандартную отправку формы
     event.preventDefault();
+
+    // Проверяем обязательные поля
     if (!projectForm.reportValidity()) return;
-    status.textContent = 'Поля заполнены. Заявка не отправлена: сервер ещё не подключён. Выбранные файлы остаются только на вашем компьютере.';
+
+    // Блокируем кнопку, пока идёт отправка
+    submitButton.disabled = true;
+    status.textContent = 'Отправляем заявку...';
+
+    try {
+      // Отправляем данные формы в EmailJS
+      await emailjs.sendForm(
+        'service_3yp4l0b',
+        'template_abzsuqj',
+        projectForm
+      );
+
+      // Если сервис подтвердил успешную отправку
+      status.textContent = 'Заявка успешно отправлена!';
+      projectForm.reset();
+
+    } catch (error) {
+      // Если отправка завершилась ошибкой
+      console.error('Ошибка отправки заявки:', error);
+      status.textContent = 'Не удалось отправить заявку. Попробуйте позже.';
+
+    } finally {
+      // Возвращаем возможность отправки
+      submitButton.disabled = false;
+    }
   });
 }
 
